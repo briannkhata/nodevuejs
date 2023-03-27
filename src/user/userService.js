@@ -1,6 +1,5 @@
 const userModel = require("./userModel");
-
-module.exports.getDataFromDBService = () => {
+const getUsers = () => {
   return new Promise((resolve, reject) => {
     userModel.find({}, (error, result) => {
       if (error) {
@@ -11,16 +10,20 @@ module.exports.getDataFromDBService = () => {
     });
   });
 };
-
-module.exports.createUserDBService = (userDetails) => {
-  const userModelData = new userModel({
+const createUser = (userDetails) => {
+  const user = new userModel({
     name: userDetails.name,
     address: userDetails.address,
     phone: userDetails.phone,
   });
 
-  return userModelData
+  return user
     .save()
     .then(() => true)
     .catch(() => false);
+};
+
+module.exports = {
+  getUsers,
+  createUser,
 };

@@ -1,8 +1,8 @@
 const userService = require("./userService");
 
-const getDataController = async (req, res) => {
+const getUsers = async (req, res) => {
   try {
-    const employees = await userService.getDataFromDBService();
+    const employees = await userService.getUsers();
     res.status(200).send({ status: true, data: employees });
   } catch (error) {
     console.error(error);
@@ -10,9 +10,9 @@ const getDataController = async (req, res) => {
   }
 };
 
-const createUserController = async (req, res) => {
+const createUser = async (req, res) => {
   try {
-    const status = await userService.createUserDBService(req.body);
+    const status = await userService.createUser(req.body);
     if (status) {
       res
         .status(201)
@@ -27,6 +27,6 @@ const createUserController = async (req, res) => {
 };
 
 module.exports = {
-  getDataControllerfn,
-  createUserControllerfn,
+    getUsers,
+  createUser,
 };
