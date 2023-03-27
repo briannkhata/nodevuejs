@@ -38,14 +38,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="employee in result" v-bind:key="employee.id">
+                    <tr v-for="employee in result" v-bind:key="employee._id">
                         <td>{{ employee._id }}</td>
                         <td>{{ employee.name }}</td>
                         <td>{{ employee.address }}</td>
                         <td>{{ employee.phone }}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" @click="edit(employee.id)">Edit</button>
-                            <button type="button" class="btn btn-danger" @click="remove(employee.id)">Delete</button>
+                            <button type="button" class="btn btn-primary" @click="edit(employee)">Edit</button>
+                            <button type="button" class="btn btn-danger" @click="remove(employee)">Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -100,7 +100,7 @@ export default {
     },
 
     saveData () {
-      axios.post('http://localhost/user/create', this.employee)
+      axios.post('http://localhost:5000/user/create', this.employee)
         .then(
           ({ data }) => {
             alert('User saved')
@@ -115,12 +115,12 @@ export default {
 
     updateData () {
       var editrecords = 'http://localhost:5000/user/update/' + this.employee._id
-      axios.patch(editrecords.this.employee).then(
+      axios.patch(editrecords, this.employee).then(
         ({ data }) => {
           this.employee.name = ''
           this.employee.address = ''
           this.employee.phone = ''
-          this.id = ''
+          this._id = ''
           alert('Updated')
           this.EmployeeLoad()
         }
