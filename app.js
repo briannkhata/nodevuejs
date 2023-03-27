@@ -15,7 +15,8 @@ mongoose
 
 app.use(express.json());
 app.use(routes);
-app.use(cors);
+//app.use('/api/v1/users/',routes);
+app.use(cors());
 
 
 app.listen(5000, () => {
