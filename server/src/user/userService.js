@@ -10,7 +10,8 @@ const getUsers = async () => {
 
 const createUser = async (userDetails) => {
   try {
-    const user = new userModel({
+    const user = new userModel(
+        {
          name: userDetails.name,
       address: userDetails.address,
         phone: userDetails.phone,
