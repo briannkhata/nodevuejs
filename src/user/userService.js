@@ -32,10 +32,31 @@ const updateUser = async (id, userDetails) => {
     return false;
   }
 };
+
+const getUser = async (id) => {
+    try {
+      const results = await userModel.findById({_id: id});
+      return results;
+    } catch (error) {
+      return false;
+    }
+  };
+
+const removeUser = async (id) => {
+    try {
+      await userModel.findByIdAndDelete({_id: id});
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
   
 
 module.exports = {
   getUsers,
   createUser,
-  updateUser
+  updateUser,
+  getUser,
+  removeUser
 };

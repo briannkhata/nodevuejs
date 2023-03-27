@@ -42,8 +42,37 @@ const updateUser = async (req, res) => {
     }
   };
 
+  const getUser = async (req, res) => {
+    try {
+      const employee = await userService.getUser(req.params.id);
+      res.status(200).send({ status: true, data: employee});
+    } catch (error) {
+      res.status(500).send({ status: false, message: "Error retrieving data" });
+    }
+  };
+
+
+  const removeUser = async (req, res) => {
+    try {
+      const status = await userService.removeUser(req.params.id);
+      if (status) {
+        res
+          .status(201)
+          .send({ status: true, message: "User removed successfully" });
+      } else {
+        res.status(400).send({ status: false, message: "Error removing User" });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ status: false, message: "Error removing User" });
+    }
+  };
+
+
 module.exports = {
     getUsers,
   createUser,
-  updateUser
+  updateUser,
+  getUser,
+  removeUser
 };
