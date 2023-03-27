@@ -92,7 +92,7 @@ export default {
     },
 
     save () {
-      if (this.employee.id === '') {
+      if (this.employee._id === '') {
         this.saveData()
       } else {
         this.updateData()
