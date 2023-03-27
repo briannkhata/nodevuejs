@@ -14,9 +14,8 @@ mongoose
   .catch((err) => console.error("Connection error:", err));
 
 app.use(express.json());
-app.use(routes);
-//app.use('/api/v1/users/',routes);
 app.use(cors());
+app.use(routes);
 
 
 app.listen(5000, () => {

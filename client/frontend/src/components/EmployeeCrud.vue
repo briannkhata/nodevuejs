@@ -1,6 +1,7 @@
 <template>
     <div id="EmployeeCrud">
-        <div>
+        <div class="container mt-5">
+
             <h1>Employee Registration</h1>
             <div>
                 <form @submit.prevent="save">
@@ -84,18 +85,25 @@ export default {
     EmployeeLoad () {
       var page = 'http://localhost:5000/user/getAll'
       axios.get(page).then(
-        ({data}) => {
-          console.log(data)
+        ({ data }) => {
           this.result = data.data
         }
       )
     },
 
+    save () {
+      if (this.employee.id === '') {
+        this.saveData()
+      } else {
+        this.updateData()
+      }
+    },
+
     saveData () {
-      axios.post('http://localhost/user/create/', this.employee)
+      axios.post('http://localhost/user/create', this.employee)
         .then(
-          ({data}) => {
-            alert('User seved')
+          ({ data }) => {
+            alert('User saved')
             this.EmployeeLoad()
           }
         )
@@ -108,7 +116,7 @@ export default {
     updateData () {
       var editrecords = 'http://localhost:5000/user/update/' + this.employee._id
       axios.patch(editrecords.this.employee).then(
-        ({data}) => {
+        ({ data }) => {
           this.employee.name = ''
           this.employee.address = ''
           this.employee.phone = ''
@@ -117,14 +125,20 @@ export default {
           this.EmployeeLoad()
         }
       )
-    }
+    },
 
+    remove (employee) {
+      var url = `http://localhost:5000/user/remove/${employee._id}`
+      axios.delete(url)
+      alert('Deleted')
+      this.EmployeeLoad()
+    }
   }
 }
 </script>
 
 <style>
-#app {
+#EmployeeCrud {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
